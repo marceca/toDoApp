@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Content from './Content';
 
 class App extends Component {
   render() {
@@ -14,6 +15,9 @@ class App extends Component {
           <div className="headers">
             Spotify
           </div>
+        </div>
+        <div className="content-container">
+          <Content />
         </div>
       </div>
     );
