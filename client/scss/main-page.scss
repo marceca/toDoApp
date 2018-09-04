@@ -70,9 +70,16 @@ table {
     border: $border;
     display: flex;
     justify-content: center;
+    position: relative;
     .content-title {
       padding: 20px 0;
       font-size: 4em;
+    }
+    .clock {
+      position: absolute;
+      top: 20;
+      right: 20;
+      font-size: 1.5em;
     }
   }
 }

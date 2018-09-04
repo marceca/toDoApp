@@ -8,12 +8,11 @@ const mapStateToProps = store => ({
 
 const Content = (props) => {
     return (
-    <div>
+    <div className={props.events.class}>
       <div className="content-title">{props.events.title}</div>
-      <Clock format={'hh:mm:ssa'} ticking={true} timezone={'US/Eastern'}/>
       <div className="content-welcome">{props.events.welcome}</div>
       <div className="content-body">{props.events.body}</div>
-      
+      <Clock className="clock" format={'hh:mm:ssa'} ticking={true} timezone={'US/Eastern'}/>
     </div>
     )
 }
