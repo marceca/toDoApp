@@ -68,5 +68,11 @@ table {
 
   .content-container {
     border: $border;
+    display: flex;
+    justify-content: center;
+    .content-title {
+      padding: 20px 0;
+      font-size: 4em;
+    }
   }
 }
