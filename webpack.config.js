@@ -1,11 +1,12 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   mode: 'development',
   entry: './client/index.js',
 
   devServer: {
-    contentBase: path.join(__dirname + '/'),
+    contentBase: path.join(__dirname, '/'),
     publicPath: '/build/'
   },
   output: {
