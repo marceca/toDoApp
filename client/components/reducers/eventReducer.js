@@ -1,7 +1,6 @@
 import * as types from '../constants/actions';
 import React from 'react';
 import * as helper from '../helperFunctions/functions';
-import request from 'request';
 
 const initState = {
   title: 'Welcome to your all in one App!',
