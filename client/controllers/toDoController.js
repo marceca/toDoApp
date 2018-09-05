@@ -21,20 +21,13 @@ toDoController.addToList = (req,res) => {
 }
 
 toDoController.postSpotifyCode = (req,res) => {
-  // console.log(req.query.code)
-  res.locals.code = req.query.code;
-  console.log(res.locals.code)
   fetch('https://accounts.spotify.com/api/token', {
     method: 'POST',
-    grant_type: 'authorization_code',
-    code: req.query.code,
-    redirect_uri: 'http://localhost:3000/',
-    client_id: '295aa975779544d094dc385b17ade653',
-    client_secret: 'c0aea6f172f544fba2efc58b5ae99762'
+    headers: { "Content-Type" : "application/x-www-form-urlencoded" },
+    body: {grant_type: 'authorization_code', code: req.query.code, redirect_uri: 'http://localhost:3000/', client_id: '295aa975779544d094dc385b17ade653', client_secret: 'c0aea6f172f544fba2efc58b5ae99762'}
   }).then(function(resp) {
-    console.log(resp)
+    console.log('resp in fetch',resp)
   })
-
   res.end();
 } 
 
