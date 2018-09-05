@@ -26,7 +26,7 @@ function addToDoList(input, state) {
   var div = document.createElement('div');
   div.innerHTML = newVal;
   document.getElementById('append-list-items').appendChild(div);
-  state.savedToDoList.push(<div key={newVal}>{newVal}</div>)
+  state.savedToDoList.push(<div className="list-item" key={newVal}>{newVal}</div>)
 }
 
 const eventReducer = (state=initState, action) => {
@@ -34,6 +34,7 @@ const eventReducer = (state=initState, action) => {
     case types.ToDo:
       let newToDoState = Object.assign({}, state);
       newToDoState.title = 'To Do';
+      newToDoState.welcome = 'Save all your to do\'s right here!'
       newToDoState.body =
         <div>
           <div id="append-list-items" className="list-items">{state.savedToDoList}</div>
@@ -42,21 +43,21 @@ const eventReducer = (state=initState, action) => {
             <input className="button-class" type="text"/>
             <input className="button-class" type="Submit"/>
           </form>
-        </div>
+        </div>;
       return newToDoState;
 
     case types.Weather:
       let newWeatherState = Object.assign({}, state);
       newWeatherState.title = 'Current Weather';
       newWeatherState.welcome = ''
-      newWeatherState.body =         <div>
-      <div id="append-list-items" className="list-items">{state.savedToDoList}</div>
-      <form onSubmit={value => {value.preventDefault(), helper.getCurrentWeather(value, newWeatherState)}}>
-        Please enter your zip for your 5 day forecast: 
-        <input className="button-class" type="text"/>
-        <input className="button-class" type="Submit"/>
-      </form>
-    </div>
+      newWeatherState.body =         
+      <div>
+        <form onSubmit={value => {value.preventDefault(), helper.getCurrentWeather(value, newWeatherState)}}>
+          Please enter your zip for your 5 day forecast: &nbsp;
+          <input className="button-class" type="text"/>
+          <input className="button-class" type="Submit"/>
+        </form>
+      </div>;
 
       return newWeatherState;
 

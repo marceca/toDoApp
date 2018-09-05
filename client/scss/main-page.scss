@@ -74,6 +74,12 @@ table {
     .content-title {
       padding: 20px 0;
       font-size: 4em;
+      text-align: center;
+    }
+    .welcome-message {
+      font-size: 2em;
+      text-align: center;
+      padding: 20px 0;
     }
     .clock {
       position: absolute;
@@ -82,7 +88,13 @@ table {
       font-size: 1.5em;
     }
     .list-items {
-      white-space: pre-line;
+      font-size: 1.2em;
     }
+  }
+  form {
+    font-size: 1.5em;
+  }
+  input {
+    font-size: 1em;
   }
 }
