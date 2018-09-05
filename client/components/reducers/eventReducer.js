@@ -1,13 +1,32 @@
 import * as types from '../constants/actions';
 import React from 'react';
 import * as helper from '../helperFunctions/functions'
-console.log('helper ', helper)
+
 const initState = {
   title: 'Welcome to your all in one App!',
   welcome: 'Welcome to your all in one App!',
   body: '',
-  class: 'test',
-  savedToDoList: {}
+  savedToDoList: []
+}
+
+function addToDoList(input, state) {
+    let newVal = input.target.querySelector('input').value
+    // fetch('/add-list-item',
+    // {
+    //   method: "POST",
+    //   mode: "cors",
+    //   headers: {
+    //     'Accept': 'application/json',
+    //       "Content-Type": "application/json; charset=utf-8",
+    //   },
+    //   redirect: "follow",
+    //   referrer: "no-referrer",
+    //   body: JSON.stringify({'item': newVal})
+    // })
+  var div = document.createElement('div');
+  div.innerHTML = newVal;
+  document.getElementById('append-list-items').appendChild(div);
+  state.savedToDoList.push(<div key={newVal}>{newVal}</div>)
 }
 
 const eventReducer = (state=initState, action) => {
@@ -17,8 +36,8 @@ const eventReducer = (state=initState, action) => {
       newToDoState.title = 'To Do';
       newToDoState.body =
         <div>
-          <div id="append-list-items"></div>
-          <form onSubmit={value => {value.preventDefault(), helper.addToDoList(value)}}>
+          <div id="append-list-items" className="list-items">{state.savedToDoList}</div>
+          <form onSubmit={value => {value.preventDefault(), addToDoList(value, newToDoState)}}>
             Add to your to do list!
             <input className="button-class" type="text"/>
             <input className="button-class" type="Submit"/>
@@ -29,7 +48,15 @@ const eventReducer = (state=initState, action) => {
     case types.Weather:
       let newWeatherState = Object.assign({}, state);
       newWeatherState.title = 'Current Weather';
-      newWeatherState.body = '';
+      newWeatherState.welcome = ''
+      newWeatherState.body =         <div>
+      <div id="append-list-items" className="list-items">{state.savedToDoList}</div>
+      <form onSubmit={value => {value.preventDefault(), helper.getCurrentWeather(value, newWeatherState)}}>
+        Please enter your zip for your 5 day forecast: 
+        <input className="button-class" type="text"/>
+        <input className="button-class" type="Submit"/>
+      </form>
+    </div>
 
       return newWeatherState;
 
