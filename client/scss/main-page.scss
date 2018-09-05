@@ -71,6 +71,7 @@ table {
     display: flex;
     justify-content: center;
     position: relative;
+    padding: 20px;
     .content-title {
       padding: 20px 0;
       font-size: 4em;
@@ -90,9 +91,17 @@ table {
     .list-items {
       font-size: 1.2em;
     }
+    .weather-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      font-size: 1.5em;
+    }
   }
   form {
     font-size: 1.5em;
+    padding: 20px 0;
   }
   input {
     font-size: 1em;

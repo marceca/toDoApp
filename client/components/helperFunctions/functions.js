@@ -1,7 +1,5 @@
-function getCurrentWeather(zip) {
+function getCurrentWeather(zip, state) {
   let newZip = zip.target.querySelector('input').value
-  console.log(newZip)
-
   fetch('http://api.openweathermap.org/data/2.5/weather?zip='+newZip+',us&units=imperial&APPID=5b0d33ceb5861a1710e8e05f47b39bfd',
     {
       method: "GET",
@@ -14,35 +12,29 @@ function getCurrentWeather(zip) {
     }).then(function(response) {
       return response.json();
     }).then(function(data) {
-      console.log(data)
+      state.currentWeather.temp = data.main.temp + ' F';
+      document.getElementById('todaysTemp').innerHTML = state.currentWeather.temp;
+      state.currentWeather.low = data.main.temp_min + ' F';
+      document.getElementById('todaysLow').innerHTML = state.currentWeather.low;
+      state.currentWeather.high = data.main.temp_max + ' F';
+      document.getElementById('todaysHigh').innerHTML = state.currentWeather.high;
+      state.currentWeather.humidity = data.main.humidity;
+      document.getElementById('todaysHumidity').innerHTML = state.currentWeather.humidity;
+      document.getElementById('weather-form').reset();
     })
 }
 
-
-
-// function addToDoList(input, state) {
-//     let newVal = input.target.querySelector('input').value
-//     // fetch('/add-list-item',
-//     // {
-//     //   method: "POST",
-//     //   mode: "cors",
-//     //   headers: {
-//     //     'Accept': 'application/json',
-//     //       "Content-Type": "application/json; charset=utf-8",
-//     //   },
-//     //   redirect: "follow",
-//     //   referrer: "no-referrer",
-//     //   body: JSON.stringify({'item': newVal})
-//     // })
-//   var div = document.createElement('div');
-//   div.innerHTML = newVal;
-//   document.getElementById('append-list-items').appendChild(div);
-//   state.savedToDoList.push(newVal)
-// }
-
+function removeMe(val,state) {
+  for(let i = 0; i < state.savedToDoList.length; i++) {
+    if(state.savedToDoList[i].key === val) {
+      state.savedToDoList.splice(i,1)
+    }
+  }
+  document.getElementById(val).innerHTML = "";
+}
 
 
 module.exports = {
-  // addToDoList,
-  getCurrentWeather
+  getCurrentWeather,
+  removeMe
 }

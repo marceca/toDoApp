@@ -1,32 +1,24 @@
 import * as types from '../constants/actions';
 import React from 'react';
-import * as helper from '../helperFunctions/functions'
+import * as helper from '../helperFunctions/functions';
+import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 
 const initState = {
   title: 'Welcome to your all in one App!',
-  welcome: 'Welcome to your all in one App!',
+  welcome: '',
   body: '',
-  savedToDoList: []
+  savedToDoList: [],
+  currentWeather: {}
 }
 
 function addToDoList(input, state) {
-    let newVal = input.target.querySelector('input').value
-    // fetch('/add-list-item',
-    // {
-    //   method: "POST",
-    //   mode: "cors",
-    //   headers: {
-    //     'Accept': 'application/json',
-    //       "Content-Type": "application/json; charset=utf-8",
-    //   },
-    //   redirect: "follow",
-    //   referrer: "no-referrer",
-    //   body: JSON.stringify({'item': newVal})
-    // })
+  let newVal = input.target.querySelector('input').value
   var div = document.createElement('div');
+  div.className = 'clear-me'
   div.innerHTML = newVal;
-  document.getElementById('append-list-items').appendChild(div);
-  state.savedToDoList.push(<div className="list-item" key={newVal}>{newVal}</div>)
+  document.getElementById('inbetween-state').appendChild(div);
+  state.savedToDoList.push(<div className="list-item" id={newVal} onClick={(e) =>{e.stopPropagation(), helper.removeMe(newVal, state)}} key={newVal}>{newVal}</div>)
+  document.getElementById('toDoForm').reset();
 }
 
 const eventReducer = (state=initState, action) => {
@@ -37,36 +29,61 @@ const eventReducer = (state=initState, action) => {
       newToDoState.welcome = 'Save all your to do\'s right here!'
       newToDoState.body =
         <div>
-          <div id="append-list-items" className="list-items">{state.savedToDoList}</div>
-          <form onSubmit={value => {value.preventDefault(), addToDoList(value, newToDoState)}}>
-            Add to your to do list!
-            <input className="button-class" type="text"/>
+          <form id="toDoForm" onSubmit={value => {value.preventDefault(), addToDoList(value, newToDoState)}}>
+            Add to your to do list!&nbsp;
+            <input type="text"/>
             <input className="button-class" type="Submit"/>
           </form>
+          <div id="append-list-items" className="list-items">{state.savedToDoList}</div>
+          <div id="inbetween-state"></div>
         </div>;
       return newToDoState;
 
     case types.Weather:
+      if(document.getElementById('inbetween-state')) {
+        document.getElementById('inbetween-state').innerHTML = ""
+      }
       let newWeatherState = Object.assign({}, state);
-      newWeatherState.title = 'Current Weather';
+      newWeatherState.title = 'Today\'s Weather';
       newWeatherState.welcome = ''
       newWeatherState.body =         
       <div>
-        <form onSubmit={value => {value.preventDefault(), helper.getCurrentWeather(value, newWeatherState)}}>
-          Please enter your zip for your 5 day forecast: &nbsp;
-          <input className="button-class" type="text"/>
+        <form id='weather-form' onSubmit={value => {value.preventDefault(), helper.getCurrentWeather(value, newWeatherState)}}>
+          Please enter your zip for your daily forecast: &nbsp;
+          <input type="text"/>
           <input className="button-class" type="Submit"/>
         </form>
+        <div id="not-list">
+          <div className="weather-flex">
+            <div>Today's temperature: &nbsp;<span id="todaysTemp">{state.currentWeather.temp}</span></div>
+            <div>Today's High: &nbsp;<span id="todaysHigh">{state.currentWeather.high}</span></div>
+          </div>
+          <div className="weather-flex">
+            <div>Today's Low: &nbsp;<span id="todaysLow">{state.currentWeather.low}</span></div>
+            <div>Today's Humidity: &nbsp;<span id="todaysHumidity">{state.currentWeather.humidity}</span></div>
+          </div>
+        </div>
       </div>;
-
       return newWeatherState;
 
-    case types.Spotify:
-      let newSpotifyState = Object.assign({}, state);
-      newSpotifyState.title = 'Spotify!';
-      newSpotifyState.body = '';
+    case types.Youtube:
+      let newYoutubeState = Object.assign({}, state);
+      newYoutubeState.title = 'Youtube!';
+      newYoutubeState.body = 
+      <Map google={this.props.google} zoom={14}>
 
-      return newSpotifyState;
+        <Marker onClick={this.onMarkerClick}
+                name={'Current location'} />
+
+        <InfoWindow onClose={this.onInfoWindowClose}>
+            <div>
+              <h1>{this.state.selectedPlace.name}</h1>
+            </div>
+        </InfoWindow>
+      </Map>
+
+      ;
+      return newYoutubeState;
 
     default:
       return state;
