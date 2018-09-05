@@ -1,4 +1,3 @@
-const GOOGLE_MAPS_KEY_API = 'AIzaSyDz-qvkzVIe4nv3VL0fzctREszeLyFeFak';
 function getCurrentWeather(zip, state) {
   let newZip = zip.target.querySelector('input').value
   fetch('http://api.openweathermap.org/data/2.5/weather?zip='+newZip+',us&units=imperial&APPID=5b0d33ceb5861a1710e8e05f47b39bfd',

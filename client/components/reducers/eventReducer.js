@@ -75,12 +75,8 @@ const eventReducer = (state=initState, action) => {
           <input type="text"/>
           <input className="button-class" type="Submit"/>
         </form>
-
         <div onClick={(e) =>{e.stopPropagation(), helper.getSpotifyPlaylists()}}>Check Playlists</div>
-
       </div>
-
-
       ;
       return newSpotifyState;
 
