@@ -16,8 +16,8 @@ function weatherState() {
   store.dispatch(types.weather(types.Weather))
 }
 
-function youtubeState() {
-  store.dispatch(types.youtube(types.Youtube))
+function spotifyState() {
+  store.dispatch(types.spotify(types.Spotify))
 }
 class App extends Component {
   constructor(props) {
@@ -33,7 +33,7 @@ class App extends Component {
           <div className="headers" onClick={function() {weatherState()}}>
             Weather
           </div>
-          <div className="headers" onClick={function() {youtubeState()}}>
+          <div className="headers" onClick={function() {spotifyState()}}>
             Youtube
           </div>
         </div>

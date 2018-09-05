@@ -1,16 +1,16 @@
 const ToDo = 'ToDo';
 const Weather = 'Weather';
-const Youtube = 'Youtube';
+const Spotify = 'Spotify';
 
 const toDo = () => ({type: ToDo});
 const weather = () => ({type: Weather});
-const youtube = () => ({type: Youtube});
+const spotify = () => ({type: Spotify});
 
 module.exports = {
   ToDo,
   toDo,
   Weather,
   weather,
-  Youtube,
-  youtube
+  Spotify,
+  spotify
 }

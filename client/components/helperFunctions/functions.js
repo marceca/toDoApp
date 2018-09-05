@@ -1,3 +1,4 @@
+const GOOGLE_MAPS_KEY_API = 'AIzaSyDz-qvkzVIe4nv3VL0fzctREszeLyFeFak';
 function getCurrentWeather(zip, state) {
   let newZip = zip.target.querySelector('input').value
   fetch('http://api.openweathermap.org/data/2.5/weather?zip='+newZip+',us&units=imperial&APPID=5b0d33ceb5861a1710e8e05f47b39bfd',
@@ -33,8 +34,23 @@ function removeMe(val,state) {
   document.getElementById(val).innerHTML = "";
 }
 
+function getSpotifyPlaylists() {
+  fetch('https://api.spotify.com/v1/me/player/currently-playing',
+    {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        'Accept': 'application/json',
+      },
+      redirect: "follow",
+      referrer: "no-referrer"
+    }).then(function(resp) {
+      console.log(resp)
+    })
+}
 
 module.exports = {
   getCurrentWeather,
-  removeMe
+  removeMe,
+  getSpotifyPlaylists
 }

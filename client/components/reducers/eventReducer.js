@@ -1,7 +1,7 @@
 import * as types from '../constants/actions';
 import React from 'react';
 import * as helper from '../helperFunctions/functions';
-import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import request from 'request';
 
 const initState = {
   title: 'Welcome to your all in one App!',
@@ -66,24 +66,24 @@ const eventReducer = (state=initState, action) => {
       </div>;
       return newWeatherState;
 
-    case types.Youtube:
-      let newYoutubeState = Object.assign({}, state);
-      newYoutubeState.title = 'Youtube!';
-      newYoutubeState.body = 
-      <Map google={this.props.google} zoom={14}>
+    case types.Spotify:
+      let newSpotifyState = Object.assign({}, state);
+      newSpotifyState.title = 'Spotify!';
+      newSpotifyState.body = 
+      <div>
+        <form id='weather-form' onSubmit={value => {value.preventDefault(), helper.getCurrentWeather(value, newWeatherState)}}>
+          Please enter your zip for your daily forecast: &nbsp;
+          <input type="text"/>
+          <input className="button-class" type="Submit"/>
+        </form>
 
-        <Marker onClick={this.onMarkerClick}
-                name={'Current location'} />
+        <div onClick={(e) =>{e.stopPropagation(), helper.getSpotifyPlaylists()}}>Check Playlists</div>
 
-        <InfoWindow onClose={this.onInfoWindowClose}>
-            <div>
-              <h1>{this.state.selectedPlace.name}</h1>
-            </div>
-        </InfoWindow>
-      </Map>
+      </div>
+
 
       ;
-      return newYoutubeState;
+      return newSpotifyState;
 
     default:
       return state;
