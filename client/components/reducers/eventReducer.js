@@ -68,14 +68,10 @@ const eventReducer = (state=initState, action) => {
     case types.Spotify:
       let newSpotifyState = Object.assign({}, state);
       newSpotifyState.title = 'Spotify!';
+      newSpotifyState.welcome = '';
       newSpotifyState.body = 
       <div>
-        <form id='weather-form' onSubmit={value => {value.preventDefault(), helper.getCurrentWeather(value, newWeatherState)}}>
-          Please enter your zip for your daily forecast: &nbsp;
-          <input type="text"/>
-          <input className="button-class" type="Submit"/>
-        </form>
-        <div onClick={(e) =>{e.stopPropagation(), helper.getSpotifyPlaylists()}}>Check Playlists</div>
+        <div onClick={(e) =>{e.stopPropagation(), helper.getSpotifyPlaylists(newSpotifyState)}}>Check Playlists</div>
       </div>
       ;
       return newSpotifyState;

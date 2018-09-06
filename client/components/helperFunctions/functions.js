@@ -33,18 +33,24 @@ function removeMe(val,state) {
   document.getElementById(val).innerHTML = "";
 }
 
-function getSpotifyPlaylists() {
-  fetch('https://api.spotify.com/v1/me/player/currently-playing',
+function getSpotifyPlaylists(state) {
+  fetch('https://api.hearthstonejson.com/v1/25770/enUS/cards.json',
     {
       method: "GET",
-      mode: "cors",
       headers: {
         'Accept': 'application/json',
       },
-      redirect: "follow",
-      referrer: "no-referrer"
     }).then(function(resp) {
-      console.log(resp)
+      return resp.json();
+    }).then(function(res) {
+      for(let i = 0; i < res.length; i++) {
+        console.log(res[i])
+        var div = document.createElement('div');
+        div.innerHTML = JSON.stringify(res[i]);
+        console.log(div)
+        document.getElementById('content-body-id').appendChild(div)
+      }
+      state.body = res
     })
 }
 

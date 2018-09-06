@@ -11,7 +11,7 @@ const Content = (props) => {
     <div className={props.events.class}>
       <div className="content-title">{props.events.title}</div>
       <div className="content-welcome" className="welcome-message">{props.events.welcome}</div>
-      <div className="content-body">{props.events.body}</div>
+      <div className="content-body" id="content-body-id">{props.events.body}</div>
       <Clock className="clock" format={'hh:mm:ssa'} ticking={true} timezone={'US/Eastern'}/>
     </div>
     )

@@ -34,7 +34,7 @@ class App extends Component {
             Weather
           </div>
           <div className="headers" onClick={function() {spotifyState()}}>
-            Youtube
+            Spotify
           </div>
         </div>
         <div className="content-container">
